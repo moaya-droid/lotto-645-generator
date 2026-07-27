@@ -131,6 +131,57 @@ function renderGames(type, games, message = "") {
   elements[type].reset.disabled = false;
 }
 
+async function revealCustomGames(games, message) {
+  elements.custom.result.innerHTML = `
+    <div class="reveal-stage">
+      <div class="reveal-heading">
+        <span class="reveal-signal" aria-hidden="true"><i></i><i></i><i></i></span>
+        <div>
+          <strong>AI 고유조합 완성 단계</strong>
+          <span id="reveal-progress">최종 조합을 순서대로 공개합니다.</span>
+        </div>
+        <b id="reveal-count">0 / ${games.length}</b>
+      </div>
+      <div class="game-list reveal-list"></div>
+    </div>
+  `;
+
+  const list = elements.custom.result.querySelector(".reveal-list");
+  const count = elements.custom.result.querySelector("#reveal-count");
+  const progress = elements.custom.result.querySelector("#reveal-progress");
+
+  for (let index = 0; index < games.length; index += 1) {
+    const game = games[index];
+    const row = document.createElement("div");
+    row.className = "game-row reveal-game";
+    row.innerHTML = `
+      <span class="game-label">G${String(index + 1).padStart(2, "0")}</span>
+      <div class="balls" aria-label="${index + 1}게임 번호 ${game.join(", ")}">
+        ${game
+          .map(
+            (number, ballIndex) =>
+              `<span class="ball ${ballRange(number)} reveal-ball" style="--ball-delay: ${
+                ballIndex * 55
+              }ms" aria-hidden="true">${number}</span>`,
+          )
+          .join("")}
+      </div>
+      <span class="reveal-check" aria-hidden="true">✓</span>
+    `;
+    list.appendChild(row);
+    count.textContent = `${index + 1} / ${games.length}`;
+    progress.textContent = `${index + 1}게임 조합 공개 완료`;
+    await wait(520);
+  }
+
+  const finalMessage = document.createElement("p");
+  finalMessage.className = "result-message reveal-message";
+  finalMessage.textContent = message || "AI 고유조합 번호가 생성되었습니다.";
+  elements.custom.result.appendChild(finalMessage);
+  elements.custom.copy.disabled = false;
+  elements.custom.reset.disabled = false;
+}
+
 function escapeHtml(value) {
   const span = document.createElement("span");
   span.textContent = String(value);
@@ -144,17 +195,36 @@ function setLoading(type, loading) {
 
   if (loading) {
     button.dataset.label = button.textContent;
-    button.textContent = "생성 중...";
-    elements[type].result.innerHTML = `
-      <div class="loading-state">
-        <span class="loading-spinner" aria-hidden="true"></span>
-        <strong>번호를 만들고 있습니다.</strong>
-        <span>잠시만 기다려 주세요.</span>
-      </div>
-    `;
+    button.textContent = type === "custom" ? "AI 조합 생성 중..." : "생성 중...";
+    elements[type].result.innerHTML =
+      type === "custom"
+        ? `
+          <div class="loading-state ai-loading-state">
+            <div class="ai-orbit" aria-hidden="true">
+              <span class="ai-core">AI</span>
+              <span class="orbit-ball orbit-ball-1">6</span>
+              <span class="orbit-ball orbit-ball-2">45</span>
+              <span class="orbit-ball orbit-ball-3">+</span>
+            </div>
+            <strong>AI가 고유조합 번호를 생성하고 있습니다.</strong>
+            <span class="loading-step">비공개 조합 엔진에서 최종 번호를 구성하는 중입니다.</span>
+            <span class="loading-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+        `
+        : `
+          <div class="loading-state">
+            <span class="loading-spinner" aria-hidden="true"></span>
+            <strong>번호를 만들고 있습니다.</strong>
+            <span>잠시만 기다려 주세요.</span>
+          </div>
+        `;
   } else {
     button.textContent = button.dataset.label || "고유조합 생성";
   }
+}
+
+function wait(milliseconds) {
+  return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
 }
 
 function showError(type, message) {
@@ -222,6 +292,7 @@ async function handleCustomGenerate() {
   }
 
   setLoading("custom", true);
+  const loadingStartedAt = performance.now();
 
   try {
     const response = await fetch(CUSTOM_API_URL, {
@@ -238,8 +309,13 @@ async function handleCustomGenerate() {
       throw new Error("서버에서 올바르지 않은 번호 형식이 반환되었습니다.");
     }
 
+    const remainingLoadingTime = Math.max(0, 1800 - (performance.now() - loadingStartedAt));
+    await wait(remainingLoadingTime);
     state.custom = data.games;
-    renderGames("custom", data.games, data.message || "고유조합 번호가 생성되었습니다.");
+    await revealCustomGames(
+      data.games,
+      data.message || "AI 고유조합 번호가 생성되었습니다.",
+    );
   } catch (error) {
     const message =
       error instanceof TypeError
