@@ -91,22 +91,30 @@ a {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
-  font-size: 17px;
+  gap: 12px;
+  font-size: 20px;
   font-weight: 800;
 }
 
-.brand-mark {
+.brand-logo-wrap {
   display: grid;
-  width: 44px;
-  height: 44px;
+  width: 58px;
+  height: 58px;
+  overflow: hidden;
+  flex: 0 0 58px;
   place-items: center;
-  border-radius: 14px;
-  background: var(--primary);
-  color: white;
-  font-size: 12px;
-  letter-spacing: -0.4px;
-  box-shadow: 0 8px 18px rgba(22, 123, 91, 0.2);
+  border: 2px solid white;
+  border-radius: 17px;
+  background: #6c5741;
+  box-shadow: 0 8px 20px rgba(41, 31, 19, 0.18);
+}
+
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.45);
 }
 
 .nav {
@@ -1519,13 +1527,15 @@ select {
   }
 
   .brand {
-    font-size: 15px;
+    gap: 9px;
+    font-size: 17px;
   }
 
-  .brand-mark {
-    width: 39px;
-    height: 39px;
-    border-radius: 12px;
+  .brand-logo-wrap {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+    border-radius: 14px;
   }
 
   .nav {
