@@ -299,7 +299,7 @@ function renderLottoStatus(data) {
     </div>
     <div class="preview-note">
       <span>당첨자 수</span>
-      <a href="https://m.dhlottery.co.kr/gameResult.do?method=byWin&drwNo=${draw.round}" target="_blank" rel="noopener noreferrer">공식 결과 확인</a>
+      <a href="https://www.dhlottery.co.kr/" target="_blank" rel="noopener noreferrer">공식 결과 확인</a>
     </div>
   `;
 
