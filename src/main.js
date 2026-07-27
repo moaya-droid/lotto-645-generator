@@ -1,6 +1,7 @@
 "use strict";
 
 const CUSTOM_API_URL = window.LOTTO_API_URL || "";
+const LOTTO_STATUS_URL = CUSTOM_API_URL.replace(/\/generate-custom\/?$/, "/lotto-status");
 const state = {
   auto: [],
   custom: [],
@@ -22,6 +23,8 @@ const elements = {
     reset: document.querySelector("#custom-reset"),
   },
   toast: document.querySelector("#toast"),
+  latestDraw: document.querySelector("#latest-draw"),
+  winningTracker: document.querySelector("#winning-tracker"),
 };
 
 const EMPTY_MARKUP = `
@@ -82,6 +85,10 @@ function ballRange(number) {
   if (number <= 30) return "range-3";
   if (number <= 40) return "range-4";
   return "range-5";
+}
+
+function renderBall(number, extraClass = "") {
+  return `<span class="ball ${ballRange(number)} ${extraClass}" aria-hidden="true">${number}</span>`;
 }
 
 function isValidGames(games, expectedCount) {
@@ -253,6 +260,127 @@ function showToast(message) {
   }, 2200);
 }
 
+function formatDrawDate(value) {
+  const [year, month, day] = String(value).split("-");
+  return year && month && day ? `${year}.${month}.${day}` : value;
+}
+
+function renderLottoStatus(data) {
+  const draw = data.latestDraw;
+  const winnerCounts = [1, 2, 3, 4, 5]
+    .map(
+      (rank) => `
+        <span>
+          <span>${rank}등</span>
+          <strong>${Number(draw.winners[rank] || 0).toLocaleString("ko-KR")}명</strong>
+        </span>
+      `,
+    )
+    .join("");
+
+  elements.latestDraw.innerHTML = `
+    <div class="preview-top">
+      <span>제${draw.round}회 당첨결과</span>
+      <span class="status-dot">${formatDrawDate(draw.date)}</span>
+    </div>
+    <div class="preview-game">
+      <span class="preview-label">이번 주 당첨번호</span>
+      <div class="draw-result-line">
+        <div class="balls">${draw.numbers.map((number) => renderBall(number)).join("")}</div>
+        <span class="plus-mark" aria-hidden="true">+</span>
+        <div class="hero-bonus">
+          ${renderBall(draw.bonus, "bonus-ball")}
+          <small>보너스</small>
+        </div>
+      </div>
+    </div>
+    <div class="hero-winner-counts">
+      ${winnerCounts}
+    </div>
+    <div class="preview-note">
+      <span>당첨자 수</span>
+      <a href="https://m.dhlottery.co.kr/gameResult.do?method=byWin&drwNo=${draw.round}" target="_blank" rel="noopener noreferrer">공식 결과 확인</a>
+    </div>
+  `;
+
+  const stats = [1, 2, 3, 4, 5]
+    .map(
+      (rank) => `
+        <div class="rank-stat">
+          <span>${rank}등</span>
+          <strong>${Number(data.stats[rank] || 0).toLocaleString("ko-KR")}</strong>
+        </div>
+      `,
+    )
+    .join("");
+
+  const pending = data.pending?.length
+    ? data.pending
+        .map(
+          (item) =>
+            `<span class="pending-chip">${item.round}회 · ${item.count}게임 검증 대기</span>`,
+        )
+        .join("")
+    : `<span class="pending-chip neutral">현재 검증 대기 조합이 없습니다.</span>`;
+
+  const history = data.winningHistory?.length
+    ? data.winningHistory
+        .map(
+          (item) => `
+            <div class="winning-record">
+              <strong>${item.round}회 ${item.rank}등</strong>
+              <div class="balls">
+                ${item.numbers.map((number) => renderBall(number)).join("")}
+              </div>
+            </div>
+          `,
+        )
+        .join("")
+    : `
+      <div class="history-empty">
+        <strong>아직 확정된 당첨 기록이 없습니다.</strong>
+        <span>${data.nextRound}회부터 실제 추첨 결과로 검증합니다.</span>
+      </div>
+    `;
+
+  elements.winningTracker.innerHTML = `
+    <div class="status-card-heading">
+      <div>
+        <span class="status-kicker">테스트 회원 전용</span>
+        <h3>고유조합 당첨 집계</h3>
+      </div>
+      <span class="verified-badge">DB 기록</span>
+    </div>
+    <div class="rank-stats">${stats}</div>
+    <div class="pending-list">${pending}</div>
+    <div class="winning-history">${history}</div>
+    <p class="tracking-note">추첨 전에는 임시 저장하며, 추첨 후 1~5등만 영구 보존합니다.</p>
+  `;
+}
+
+function renderStatusError() {
+  const markup = `
+    <div class="status-error">
+      <strong>추첨 정보를 불러오지 못했습니다.</strong>
+      <span>잠시 후 새로고침해 주세요.</span>
+    </div>
+  `;
+  elements.latestDraw.innerHTML = markup;
+  elements.winningTracker.innerHTML = markup;
+}
+
+async function loadLottoStatus() {
+  if (!LOTTO_STATUS_URL) return;
+  try {
+    const response = await fetch(LOTTO_STATUS_URL);
+    const data = await response.json();
+    if (!response.ok || !data?.ok) throw new Error();
+    renderLottoStatus(data);
+  } catch {
+    renderStatusError();
+  }
+}
+
 async function copyGames(type) {
   if (!state[type].length) return;
 
@@ -314,8 +442,11 @@ async function handleCustomGenerate() {
     state.custom = data.games;
     await revealCustomGames(
       data.games,
-      data.message || "AI 고유조합 번호가 생성되었습니다.",
+      data.targetRound
+        ? `${data.targetRound}회 검증 대상으로 DB에 기록했습니다.`
+        : data.message || "AI 고유조합 번호가 생성되었습니다.",
     );
+    await loadLottoStatus();
   } catch (error) {
     const message =
       error instanceof TypeError
@@ -333,3 +464,5 @@ elements.auto.copy.addEventListener("click", () => copyGames("auto"));
 elements.custom.copy.addEventListener("click", () => copyGames("custom"));
 elements.auto.reset.addEventListener("click", () => reset("auto"));
 elements.custom.reset.addEventListener("click", () => reset("custom"));
+
+loadLottoStatus();
