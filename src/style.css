@@ -519,9 +519,281 @@ select {
   animation: spin 0.8s linear infinite;
 }
 
+.ai-loading-state {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 37%, rgba(22, 123, 91, 0.12), transparent 34%),
+    linear-gradient(180deg, #fbfefd 0%, #f2f8f6 100%);
+}
+
+.ai-loading-state::before {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border: 1px solid rgba(22, 123, 91, 0.08);
+  border-radius: 50%;
+  content: "";
+}
+
+.ai-loading-state strong {
+  position: relative;
+  margin: 19px 0 7px;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.loading-step {
+  position: relative;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.ai-orbit {
+  position: relative;
+  width: 94px;
+  height: 94px;
+  border: 1px solid rgba(22, 123, 91, 0.2);
+  border-radius: 50%;
+  animation: orbit-spin 3.2s linear infinite;
+}
+
+.ai-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--primary);
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  box-shadow: 0 10px 26px rgba(22, 123, 91, 0.25);
+  transform: translate(-50%, -50%);
+  animation: core-pulse 1.5s ease-in-out infinite;
+}
+
+.orbit-ball {
+  position: absolute;
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: #dff1ea;
+  color: var(--primary-dark);
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 800;
+  box-shadow: 0 5px 14px rgba(16, 36, 62, 0.12);
+}
+
+.orbit-ball-1 {
+  top: -6px;
+  left: 35px;
+}
+
+.orbit-ball-2 {
+  right: -4px;
+  bottom: 10px;
+}
+
+.orbit-ball-3 {
+  bottom: 7px;
+  left: -3px;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 5px;
+  margin-top: 15px;
+}
+
+.loading-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: dot-wave 1.15s ease-in-out infinite;
+}
+
+.loading-dots i:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+.loading-dots i:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+.reveal-stage {
+  min-height: 284px;
+  background:
+    linear-gradient(180deg, rgba(231, 244, 239, 0.74), rgba(247, 250, 249, 0) 92px),
+    var(--surface-soft);
+}
+
+.reveal-heading {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 11px;
+  border-bottom: 1px solid var(--line);
+  padding: 14px 18px;
+}
+
+.reveal-heading > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reveal-heading strong {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.reveal-heading span,
+.reveal-heading b {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.reveal-heading b {
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal-signal {
+  display: flex;
+  width: 28px;
+  height: 28px;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 9px;
+  padding-bottom: 8px;
+  background: var(--primary);
+}
+
+.reveal-signal i {
+  width: 3px;
+  border-radius: 3px;
+  background: white;
+  animation: signal-scan 0.8s ease-in-out infinite alternate;
+}
+
+.reveal-signal i:nth-child(1) {
+  height: 5px;
+}
+
+.reveal-signal i:nth-child(2) {
+  height: 10px;
+  animation-delay: 0.15s;
+}
+
+.reveal-signal i:nth-child(3) {
+  height: 7px;
+  animation-delay: 0.3s;
+}
+
+.reveal-game {
+  position: relative;
+  padding-right: 24px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: reveal-row 0.42s ease forwards;
+}
+
+.reveal-ball {
+  opacity: 0;
+  transform: scale(0.5) rotate(-12deg);
+  animation: reveal-ball 0.46s cubic-bezier(0.2, 0.9, 0.25, 1.25) forwards;
+  animation-delay: var(--ball-delay);
+}
+
+.reveal-check {
+  position: absolute;
+  right: 0;
+  display: grid;
+  width: 17px;
+  height: 17px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 9px;
+  opacity: 0;
+  animation: reveal-check 0.3s ease 0.42s forwards;
+}
+
+.reveal-message {
+  animation: reveal-row 0.35s ease forwards;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes core-pulse {
+  50% {
+    box-shadow: 0 12px 32px rgba(22, 123, 91, 0.36);
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+@keyframes dot-wave {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes signal-scan {
+  to {
+    height: 13px;
+    opacity: 0.55;
+  }
+}
+
+@keyframes reveal-row {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-ball {
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes reveal-check {
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
