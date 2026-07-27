@@ -251,7 +251,7 @@ a:focus-visible {
   justify-content: space-between;
   padding-bottom: 22px;
   border-bottom: 1px solid var(--line);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -260,7 +260,7 @@ a:focus-visible {
   align-items: center;
   gap: 6px;
   color: var(--primary);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .status-dot::before {
@@ -279,7 +279,7 @@ a:focus-visible {
   display: block;
   margin-bottom: 17px;
   color: #8a96a4;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
   letter-spacing: 1px;
 }
@@ -340,7 +340,7 @@ a:focus-visible {
   padding: 14px 16px;
   background: var(--surface-soft);
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
 }
 
@@ -380,7 +380,7 @@ a:focus-visible {
 
 .hero-bonus small {
   color: var(--muted);
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -402,7 +402,7 @@ a:focus-visible {
 .hero-winner-counts span span {
   display: block;
   color: var(--muted);
-  font-size: 8px;
+  font-size: 11px;
 }
 
 .hero-winner-counts strong {
@@ -410,7 +410,7 @@ a:focus-visible {
   overflow: hidden;
   margin-top: 2px;
   color: var(--ink);
-  font-size: 9px;
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -472,7 +472,7 @@ a:focus-visible {
   display: block;
   margin-bottom: 5px;
   color: var(--primary);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.8px;
 }
@@ -572,14 +572,14 @@ a:focus-visible {
 .rank-stat span {
   display: block;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .rank-stat strong {
   display: block;
   margin-top: 2px;
   color: var(--primary);
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .pending-list {
@@ -594,7 +594,7 @@ a:focus-visible {
   padding: 6px 9px;
   background: #eef5fb;
   color: #28699b;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -620,14 +620,18 @@ a:focus-visible {
 .winning-record strong {
   flex: 0 0 auto;
   color: var(--ink);
-  font-size: 11px;
+  font-size: 13px;
+}
+
+.winning-record .balls {
+  gap: 4px;
 }
 
 .winning-record .ball {
-  width: 26px;
-  height: 26px;
-  flex-basis: 26px;
-  font-size: 9px;
+  width: 32px;
+  height: 32px;
+  flex-basis: 32px;
+  font-size: 11px;
 }
 
 .history-empty {
@@ -645,12 +649,12 @@ a:focus-visible {
 .history-empty strong {
   margin-bottom: 4px;
   color: #4d5c6f;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .history-empty span,
 .tracking-note {
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .tracking-note {
