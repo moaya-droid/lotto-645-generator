@@ -144,7 +144,7 @@ async function revealCustomGames(games, message) {
       <div class="reveal-heading">
         <span class="reveal-signal" aria-hidden="true"><i></i><i></i><i></i></span>
         <div>
-          <strong>AI 고유조합 완성 단계</strong>
+          <strong>AI 리온번호 완성 단계</strong>
           <span id="reveal-progress">최종 조합을 순서대로 공개합니다.</span>
         </div>
         <b id="reveal-count">0 / ${games.length}</b>
@@ -183,7 +183,7 @@ async function revealCustomGames(games, message) {
 
   const finalMessage = document.createElement("p");
   finalMessage.className = "result-message reveal-message";
-  finalMessage.textContent = message || "AI 고유조합 번호가 생성되었습니다.";
+  finalMessage.textContent = message || "AI 리온번호가 생성되었습니다.";
   elements.custom.result.appendChild(finalMessage);
   elements.custom.copy.disabled = false;
   elements.custom.reset.disabled = false;
@@ -213,7 +213,7 @@ function setLoading(type, loading) {
               <span class="orbit-ball orbit-ball-2">45</span>
               <span class="orbit-ball orbit-ball-3">+</span>
             </div>
-            <strong>AI가 고유조합 번호를 생성하고 있습니다.</strong>
+            <strong>AI가 리온번호를 생성하고 있습니다.</strong>
             <span class="loading-step">비공개 조합 엔진에서 최종 번호를 구성하는 중입니다.</span>
             <span class="loading-dots" aria-hidden="true"><i></i><i></i><i></i></span>
           </div>
@@ -226,7 +226,7 @@ function setLoading(type, loading) {
           </div>
         `;
   } else {
-    button.textContent = button.dataset.label || "고유조합 생성";
+    button.textContent = button.dataset.label || "리온번호 생성";
   }
 }
 
@@ -347,7 +347,7 @@ function renderLottoStatus(data) {
     <div class="status-card-heading">
       <div>
         <span class="status-kicker">테스트 회원 전용</span>
-        <h3>고유조합 당첨 집계</h3>
+        <h3>리온번호 당첨 집계</h3>
       </div>
     </div>
     <div class="rank-stats">${stats}</div>
@@ -443,7 +443,7 @@ async function handleCustomGenerate() {
       data.games,
       data.targetRound
         ? `${data.targetRound}회 검증 대상으로 DB에 기록했습니다.`
-        : data.message || "AI 고유조합 번호가 생성되었습니다.",
+        : data.message || "AI 리온번호가 생성되었습니다.",
     );
     await loadLottoStatus();
   } catch (error) {
