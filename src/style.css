@@ -1471,6 +1471,21 @@ select {
     flex-basis: min(45px, calc((100vw - 110px) / 6));
   }
 
+  .hero-preview .draw-result-line {
+    gap: 5px;
+  }
+
+  .hero-preview .draw-result-line .balls {
+    gap: 3px;
+  }
+
+  .hero-preview .draw-result-line .ball {
+    width: min(34px, calc((100vw - 165px) / 7));
+    height: min(34px, calc((100vw - 165px) / 7));
+    flex-basis: min(34px, calc((100vw - 165px) / 7));
+    font-size: 11px;
+  }
+
   .generator-section {
     padding-block: 72px 85px;
   }
