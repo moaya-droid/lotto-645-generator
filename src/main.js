@@ -349,7 +349,6 @@ function renderLottoStatus(data) {
         <span class="status-kicker">테스트 회원 전용</span>
         <h3>고유조합 당첨 집계</h3>
       </div>
-      <span class="verified-badge">DB 기록</span>
     </div>
     <div class="rank-stats">${stats}</div>
     <div class="pending-list">${pending}</div>
