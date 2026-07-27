@@ -8,28 +8,30 @@
       content="개인정보 입력 없이 원하는 게임 수만큼 로또 6/45 번호를 생성하는 간단한 번호 도구"
     />
     <meta name="theme-color" content="#167b5b" />
-    <title>로또 6/45 번호 생성기</title>
-    <link rel="stylesheet" href="./src/style.css?v=20260727-8" />
+    <title>로또리온 | 로또 6/45 번호 생성</title>
+    <link rel="stylesheet" href="./src/style.css?v=20260727-10" />
     <script>
       window.LOTTO_API_URL =
         "https://lotto-custom-api.killu800.workers.dev/generate-custom";
     </script>
-    <script src="./src/main.js?v=20260727-8" defer></script>
+    <script src="./src/main.js?v=20260727-10" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">본문 바로가기</a>
 
     <header class="site-header">
       <div class="header-inner">
-        <a class="brand" href="#home" aria-label="로또 6/45 번호 생성기 홈">
-          <span class="brand-mark" aria-hidden="true">6/45</span>
-          <span>번호 생성기</span>
+        <a class="brand" href="#home" aria-label="로또리온 홈">
+          <span class="brand-logo-wrap" aria-hidden="true">
+            <img class="brand-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgFBgcGBQgHBgcJCAgJDBMMDAsLDBgREg4THBgdHRsYGxofIywlHyEqIRobJjQnKi4vMTIxHiU2OjYwOiwwMTD/2wBDAQgJCQwKDBcMDBcwIBsgMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDD/wgARCABgAGADASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAQIAAwQF/8QAGgEAAwEBAQEAAAAAAAAAAAAAAQIDBAAFBv/aAAwDAQACEAMQAAAB5chQlo6OpsZHpF6d1K2JSagh0awaJUD7c+W+XV1Kcujn5e8hHHpsHo5KVdbRu149MKdznp1cIxub2tmm/g9TKenyvW8+uu6pKPZU8a9Hbiuxb7HsVlod0+l+Ws4nRzQvhR0wekHrKm23NErYggK6aIV00qKziwFBBO4wRWaCAmCEECMpEhH/xAAkEAACAgICAQMFAAAAAAAAAAABAgADBBESEyAQFDEFISMwUP/aAAgBAQABBQL9+pqampqHxAgWa1OWytX36zsNDD4KIle5lIyygswbFYBMQCZTWdSgiGH0ErlGpfYfc4hPRhZNntM67IW7O+S4a4w+gimNbxrxrK+upG3dlYuSlWRTw+pGyt8Y464S/B9RMJVdDayiyqoNTQLZ1VVsasYl98LFFdp8MIfiDBZkcCKPmpG7FbdfDYzTu0+CM9c774GcRhznWs7r99zwklv43//EACERAAICAgEEAwAAAAAAAAAAAAABAhEDEiEEEBMyMEGx/9oACAEDAQE/ARI1NR9kiMbIar2Jay9SarsiWd46N3OpGOVO5Eeo8snx2RhgnG2iSXh4XIsuZc2/v8OgnKUnYxMssbQtY+q+D//EACMRAAICAQMDBQAAAAAAAAAAAAABAhEDEBMhBBIiMDEyQVH/2gAIAQIBAT8BGzuFIWjZLKroyZH7Ix5f1kHekh4l32yGODTUieONqMB9PtRWjM0vKrI3vVfBs439HWQio2hDRycisblL5P0P/8QANRAAAgEDAQUDCAsAAAAAAAAAAQIRAAMSIRMxMkFhICJCI1FScXKBkbEEJDAzNEBQYqHh8f/aAAgBAQAGPwL84Avxo5sT5o0rjheomu98fsFAEk8qUJjsMNetKbBLA+maU32LNO5eGri38Tr5Oirbx25UZCMTHKrrJAd2Me6nu/SVcBOmpq0tlWh4Mx86tXdNO6ac5Tu7RjzVs+6BG+YprqYMh3BjE9awcm067wR/FbCx5UxLM2lJIXHwx5+tY5Wy0HSdZr1Hs3GwRrit4+Q5VrhA5aVC2uUxOg51+HtFfcDQ+qqvz+dEtanZmBJJ30CwtFD4dDRVOCAy9AezdYviGaB6x/tcSr1xpWO0zKjU86nB517x0C0NpYuEyOgq+dCsgGffUynqJq3wl8ZYqIGPLsnZvjlvESDX32PsqFrS7dE/vNd8s/tGa/up27mPS1FcFgdcKLOxZjz/AEf/xAAmEAEAAgIBBAICAgMAAAAAAAABABEhMUEQUWGhcYEgscHwMJHR/9oACAEBAAE/Ieh0JUrox/AgQg6hgR611JozNYgtL4P95gYcrfv5lWH3AThx7cGCCPQJf0jg7LvyB+tQ2lzS7Vm/N3AwJSVJ516l4GLk04ScRFrtvj63C8Barxx6h/EUbZXOJ0L3v+IDhwO6V/2ITsFt8GWg1cBa+6nIE7V2lKGTV7Xr2TDCcF+NXDB0UqlhVNqlIAoquxy27imNlCI1lxepYvNItd1WyOztgBva7W5zZznrgtos3iQ8GN+Y7YaQPjpYRTCI2+SaXjvKouIBH6lI2bEsgKhfUWrYXhOOKzMwOoZsWe8awzRNrsXOp/WGSysSyKxzmhddDCEGvA47w5v6isKR2FjANQq+aVADzgLm0VepavgV59ykPZl/KFBEHL94htycrCwfLh6GEGLNxlQ8imdlf1VhE1cyayT9rH9poqytZY+JhtIqqIciaZ23fL6WpsyOovS5cuXLly5cuLF/G5cuXLly/wDP/9oADAMBAAIAAwAAABDoDFWpOxI991P5PsBRRQz1xqCKDQ4DH3wIBlL/xAAiEQEAAgAGAgMBAAAAAAAAAAABABEQITFBUXFhwYHR8OH/2gAIAQMBAT8QDAExRBUcC8QOHi5e/wAwo1qud89paqJgykQFQi6719zYCn4qJpm51+98RMKYDnue6YNIFPF6bN/3xBLEO67K6HeUEGonN/Otl8VgogXUleIrUgsoOiLBgy4scP/EACIRAQACAQMEAwEAAAAAAAAAAAEAESExQWEQUXHwgaHB4f/aAAgBAgEBPxBegggMUJWTUGYptr3vsxBqz375lISDDZMwa48SpO8b58XMZ7zvluEa7rD5PfbhDGAUYNH8slZSs81ruV/OYqwbK0rd+fuCwBHtXxz0WRBoyu6AaM1QfMCJElQIQn//xAAjEAEBAAICAgICAwEAAAAAAAABEQAhMUEQUWFxgZEgMKHx/9oACAEBAAE/EMPAMGV4Jgzlj5Fx3E8Zl8eOHHwVl3KdYNIA2r1hbAcGJ2CH4e8U4swmh3A7uo3rjFDhL+RboJ97xTQNWCJXTpZf18+WHjdlhrHmGNcDRBh38Gn3x3jzCEil0jnuX1xvDfJfeqeX2i8ZX2gHA1A0ZVYK4kwAdG/QHM2PhcIuu6s5bPOxvwDHOWApkVIhincmroLQJWD2czC22FhQ8HukD7uLBhM1moaL1qxWYevwIh2YESlRt30kagZuiIPZo17zcdw6kl+RFTbePBuxM2ZcYhSKJZuMyePaMVWA0iLNuOcOKUQgIx2GgWaM6w/2bEOInF6HCj74W0FgogAvEpMVGJZYQcgEEk+e81GVoUAearaIWjgJKz26Ov1x+M5Zyx4oY+CpCICxDslwuvWS7gwR3JJMR8ofgAgSqwchC5WFwoaC5Iuzf3vAxZ4SIsCROfvFAgahqyQq35Wo8YXrpiED0I/RpkZyEVsl7iIPqeZ4tYQ6/bKew0xA3q8YtPDo83UqP5twmhWowHIbhNPrLYAJGTkBoe3vGa7AakHLILs3Gd4gNwoeWW5pEenZvKp12KfAVPzlppkgQRQg7IQ1i8FmjHYYLXGhGl+c0QJ5XP03/cYWlTL9u9uWV0/56TGXJBZsnDtpMVV8CKORIMLd6y59YNfdP+MhaDXFAgAaAOA0ZuxcMGTxnnn8NLly5fA/iBxcvi+R/o//2Q==" alt="" />
+          </span>
+          <span>로또리온</span>
         </a>
 
         <nav class="nav" aria-label="주요 메뉴">
           <a href="#lotto-status">최신결과</a>
           <a href="#auto-generator">자동번호</a>
-          <a href="#custom-generator">고유조합</a>
+          <a href="#custom-generator">리온번호</a>
           <a href="#notice">공지</a>
           <a href="#guide">이용 안내</a>
         </nav>
@@ -39,10 +41,10 @@
     <main id="main-content">
       <section class="hero" id="home">
         <div class="hero-copy">
-          <span class="eyebrow">LOTTO 6/45 NUMBER TOOL</span>
+          <span class="eyebrow">LOTTORION 6/45</span>
           <h1>원하는 게임 수를 선택하고<br />번호를 생성하세요.</h1>
           <p>
-            일반 자동번호와 고유조합 번호를<br class="mobile-break" />
+            일반 자동번호와 리온번호를<br class="mobile-break" />
             간단하게 확인할 수 있습니다.
           </p>
           <div class="hero-actions">
@@ -61,8 +63,8 @@
 
       <section class="lotto-status-section" id="lotto-status" aria-labelledby="lotto-status-title">
         <div class="section-heading">
-          <span class="eyebrow">MY VERIFIED RECORD</span>
-          <h2 id="lotto-status-title">고유조합 당첨 기록</h2>
+          <span class="eyebrow">RION VERIFIED RECORD</span>
+          <h2 id="lotto-status-title">리온번호 당첨 기록</h2>
           <p>테스트 회원의 다음 회차 검증 결과와 실제 당첨 기록을 확인합니다.</p>
         </div>
 
@@ -70,7 +72,7 @@
           <article class="tracking-card" id="winning-tracker" aria-live="polite">
             <div class="status-loading">
               <span class="loading-spinner" aria-hidden="true"></span>
-              <span>고유조합 검증 기록을 불러오는 중입니다.</span>
+              <span>리온번호 검증 기록을 불러오는 중입니다.</span>
             </div>
           </article>
         </div>
@@ -142,7 +144,7 @@
             <div class="card-heading">
               <span class="card-index">02</span>
               <div>
-                <h3>고유조합 생성</h3>
+                <h3>리온번호 생성</h3>
                 <p>내부 조합 기준을 바탕으로 번호를 생성합니다.</p>
               </div>
             </div>
@@ -151,7 +153,7 @@
               <label for="custom-count">게임 수</label>
               <div class="select-row">
                 <div class="select-wrap">
-                  <select id="custom-count" aria-label="고유조합 게임 수">
+                  <select id="custom-count" aria-label="리온번호 게임 수">
                     <option value="1">1게임</option>
                     <option value="2">2게임</option>
                     <option value="3">3게임</option>
@@ -165,7 +167,7 @@
                   </select>
                 </div>
                 <button class="button button-primary generate-button" id="custom-generate" type="button">
-                  고유조합 생성
+                  리온번호 생성
                 </button>
               </div>
             </div>
@@ -221,10 +223,10 @@
 
     <footer class="site-footer">
       <div>
-        <strong>로또 6/45 번호 생성기</strong>
-        <span>원하는 만큼 간편하게 사용하는 번호 도구</span>
+        <strong>로또리온</strong>
+        <span>자동번호와 리온번호를 간편하게 확인하는 로또 6/45 도구</span>
       </div>
-      <p>© 2026 moaya. All rights reserved.</p>
+      <p>© 2026 LOTTOLION. All rights reserved.</p>
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
