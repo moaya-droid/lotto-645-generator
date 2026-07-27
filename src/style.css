@@ -870,7 +870,33 @@ select {
 }
 
 .notice-section {
-  padding-block: 70px 105px;
+  padding-block: 34px 88px;
+}
+
+.notice-simple {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px 22px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.notice-simple strong {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-size: 11px;
 }
 
 .section-heading-left {
@@ -1196,6 +1222,12 @@ select {
 
   .result-actions .button {
     flex: 1;
+  }
+
+  .notice-simple {
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
   }
 }
 
