@@ -1,0 +1,10 @@
+# 공개 GitHub Pages 저장소에는 비공개 조합 엔진을 커밋하지 않습니다.
+worker/
+private-notes/
+tools/
+
+# 로컬 비밀값
+.dev.vars
+.dev.vars.*
+node_modules/
+.wrangler/
