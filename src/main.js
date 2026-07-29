@@ -314,6 +314,23 @@ function renderLottoStatus(data) {
     )
     .join("");
 
+  const summary = data.summary || {};
+  const summaryCards = [
+    ["검증 회차", `${Number(summary.verifiedRounds || 0).toLocaleString("ko-KR")}회`],
+    ["생성 게임", `${Number(summary.generatedGames || 0).toLocaleString("ko-KR")}게임`],
+    ["검증 완료", `${Number(summary.verifiedGames || 0).toLocaleString("ko-KR")}게임`],
+    ["당첨 게임", `${Number(summary.winningGames || 0).toLocaleString("ko-KR")}게임`],
+  ]
+    .map(
+      ([label, value]) => `
+        <div class="summary-stat">
+          <span>${label}</span>
+          <strong>${value}</strong>
+        </div>
+      `,
+    )
+    .join("");
+
   const pending = data.pending?.length
     ? data.pending
         .map(
@@ -323,38 +340,109 @@ function renderLottoStatus(data) {
         .join("")
     : `<span class="pending-chip neutral">현재 검증 대기 조합이 없습니다.</span>`;
 
-  const history = data.winningHistory?.length
-    ? data.winningHistory
-        .map(
-          (item) => `
-            <div class="winning-record">
-              <strong>${item.round}회 ${item.rank}등</strong>
-              <div class="balls">
-                ${item.numbers.map((number) => renderBall(number)).join("")}
-              </div>
-            </div>
-          `,
-        )
-        .join("")
-    : `
-      <div class="history-empty">
-        <strong>아직 확정된 당첨 기록이 없습니다.</strong>
-        <span>${data.nextRound}회부터 실제 추첨 결과로 검증합니다.</span>
-      </div>
-    `;
+  const rounds = Array.isArray(data.roundStats) ? data.roundStats : [];
+  const roundOptions = rounds
+    .map((item) => `<option value="${item.round}">제${item.round}회</option>`)
+    .join("");
 
   elements.winningTracker.innerHTML = `
     <div class="status-card-heading">
       <div>
         <span class="status-kicker">테스트 회원 전용</span>
-        <h3>리온번호 당첨 집계</h3>
+        <h3>리온번호 검증 통계</h3>
       </div>
+      <label class="round-filter-label">
+        <span>회차 선택</span>
+        <select id="round-filter">
+          <option value="all">전체 누적</option>
+          ${roundOptions}
+        </select>
+      </label>
     </div>
-    <div class="rank-stats">${stats}</div>
+    <div class="summary-stats">${summaryCards}</div>
+    <div class="stat-section-title">
+      <strong id="rank-summary-title">전체 누적 당첨</strong>
+      <span>검증 완료 번호 기준</span>
+    </div>
+    <div class="rank-stats" id="rank-stats">${stats}</div>
     <div class="pending-list">${pending}</div>
-    <div class="winning-history">${history}</div>
-    <p class="tracking-note">추첨 전에는 임시 저장하며, 추첨 후 1~5등만 영구 보존합니다.</p>
+    <div class="round-breakdown" id="round-breakdown"></div>
+    <div class="winning-history" id="winning-history"></div>
+    <p class="tracking-note">
+      낙첨 번호는 보존하지 않으며, 회차별 생성·검증 건수와 1~5등 당첨 기록만 누적합니다.
+    </p>
   `;
+
+  const filter = elements.winningTracker.querySelector("#round-filter");
+  const rankStats = elements.winningTracker.querySelector("#rank-stats");
+  const rankTitle = elements.winningTracker.querySelector("#rank-summary-title");
+  const breakdown = elements.winningTracker.querySelector("#round-breakdown");
+  const historyContainer = elements.winningTracker.querySelector("#winning-history");
+
+  const renderRankStats = (rankData) =>
+    [1, 2, 3, 4, 5]
+      .map(
+        (rank) => `
+          <div class="rank-stat">
+            <span>${rank}등</span>
+            <strong>${Number(rankData?.[rank] || 0).toLocaleString("ko-KR")}</strong>
+          </div>
+        `,
+      )
+      .join("");
+
+  const renderFilteredRecords = (selectedRound) => {
+    const selected =
+      selectedRound === "all"
+        ? null
+        : rounds.find((item) => String(item.round) === selectedRound);
+    const visibleHistory = (data.winningHistory || []).filter(
+      (item) => !selected || item.round === selected.round,
+    );
+
+    rankTitle.textContent = selected ? `제${selected.round}회 당첨` : "전체 누적 당첨";
+    rankStats.innerHTML = renderRankStats(selected ? selected.ranks : data.stats);
+
+    breakdown.innerHTML = selected
+      ? `
+        <div class="round-summary">
+          <strong>제${selected.round}회 검증 결과</strong>
+          <span>생성 ${selected.generatedGames.toLocaleString("ko-KR")}게임</span>
+          <span>검증 ${selected.verifiedGames.toLocaleString("ko-KR")}게임</span>
+        </div>
+      `
+      : rounds.length
+        ? `
+          <div class="round-summary">
+            <strong>최근 ${rounds.length.toLocaleString("ko-KR")}회차 기록</strong>
+            <span>회차 선택으로 상세 결과를 확인하세요.</span>
+          </div>
+        `
+        : "";
+
+    historyContainer.innerHTML = visibleHistory.length
+      ? visibleHistory
+          .map(
+            (item) => `
+              <div class="winning-record">
+                <strong>제${item.round}회 ${item.rank}등</strong>
+                <div class="balls">
+                  ${item.numbers.map((number) => renderBall(number)).join("")}
+                </div>
+              </div>
+            `,
+          )
+          .join("")
+      : `
+        <div class="history-empty">
+          <strong>${selected ? `제${selected.round}회 당첨 기록이 없습니다.` : "아직 확정된 당첨 기록이 없습니다."}</strong>
+          <span>${selected ? `${selected.verifiedGames.toLocaleString("ko-KR")}게임 검증 완료` : `${data.nextRound}회부터 실제 추첨 결과로 검증합니다.`}</span>
+        </div>
+      `;
+  };
+
+  filter.addEventListener("change", () => renderFilteredRecords(filter.value));
+  renderFilteredRecords("all");
 }
 
 function renderStatusError() {

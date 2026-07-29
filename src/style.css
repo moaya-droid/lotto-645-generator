@@ -570,6 +570,92 @@ a:focus-visible {
   padding: 21px 0 14px;
 }
 
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 22px 0 8px;
+}
+
+.summary-stat {
+  border-radius: 12px;
+  padding: 13px 8px;
+  background: var(--surface-soft);
+  text-align: center;
+}
+
+.summary-stat span,
+.stat-section-title span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.summary-stat strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.stat-section-title {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.stat-section-title strong {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.round-filter-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.round-filter-label > span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.round-filter-label select {
+  min-width: 112px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 8px 28px 8px 10px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.round-breakdown {
+  margin-bottom: 10px;
+}
+
+.round-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  border: 1px solid #dbe8e4;
+  border-radius: 11px;
+  padding: 10px 12px;
+  background: #f6fbf9;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.round-summary strong {
+  color: var(--primary-dark);
+}
+
 .rank-stat {
   border: 1px solid var(--line);
   border-radius: 11px;
@@ -1454,6 +1540,25 @@ select {
     font-size: 21px;
   }
 
+  .summary-stat span,
+  .stat-section-title span,
+  .round-filter-label > span {
+    font-size: 12px;
+  }
+
+  .summary-stat strong {
+    font-size: 19px;
+  }
+
+  .stat-section-title strong {
+    font-size: 16px;
+  }
+
+  .round-filter-label select,
+  .round-summary {
+    font-size: 13px;
+  }
+
   .pending-chip {
     font-size: 13px;
   }
@@ -1665,6 +1770,26 @@ select {
     align-items: flex-start;
     flex-direction: column;
     gap: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .status-card-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .round-filter-label {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .round-filter-label select {
+    min-width: 132px;
+  }
+
+  .summary-stats {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
