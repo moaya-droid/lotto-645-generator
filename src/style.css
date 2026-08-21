@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap");
 
 :root {
-  --bg: #f5f7fb;
+  --bg: #e4e9f0;
   --surface: #ffffff;
-  --surface-soft: #f7f9fc;
+  --surface-soft: #eef2f6;
   --ink: #10243e;
   --muted: #637083;
-  --line: #dfe5ee;
+  --line: #cbd5e1;
   --primary: #167b5b;
   --primary-dark: #0e6248;
   --primary-soft: #e7f4ef;
@@ -19,7 +19,7 @@
   --lotto-red: #ff7272;
   --lotto-gray: #aaa;
   --lotto-green: #b0d840;
-  --shadow: 0 20px 55px rgba(35, 51, 78, 0.09);
+  --shadow: 0 22px 58px rgba(22, 39, 64, 0.15);
 }
 
 * {
@@ -33,9 +33,9 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 8% 4%, rgba(255, 213, 95, 0.13), transparent 24rem),
-    radial-gradient(circle at 92% 16%, rgba(92, 172, 226, 0.12), transparent 28rem),
-    linear-gradient(180deg, #f8fafc 0%, var(--bg) 48%, #f8f7fc 100%);
+    radial-gradient(circle at 8% 4%, rgba(251, 196, 0, 0.1), transparent 24rem),
+    radial-gradient(circle at 92% 15%, rgba(105, 200, 242, 0.13), transparent 29rem),
+    linear-gradient(180deg, #edf1f5 0%, var(--bg) 48%, #dfe5ec 100%);
   color: var(--ink);
   font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   word-break: keep-all;
@@ -77,8 +77,8 @@ a {
   position: sticky;
   z-index: 20;
   top: 0;
-  border-bottom: 1px solid rgba(223, 231, 228, 0.9);
-  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid rgba(188, 201, 215, 0.95);
+  background: rgba(245, 248, 251, 0.94);
   backdrop-filter: blur(14px);
 }
 
@@ -148,12 +148,27 @@ a {
 }
 
 .hero {
+  position: relative;
+  isolation: isolate;
   display: grid;
   min-height: 570px;
   grid-template-columns: minmax(0, 0.9fr) minmax(600px, 1.1fr);
   align-items: center;
   gap: 56px;
   padding-block: 72px 88px;
+}
+
+.hero::before {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid #d1dbe6;
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 10% 16%, rgba(251, 196, 0, 0.09), transparent 24%),
+    linear-gradient(135deg, rgba(242, 246, 250, 0.96), rgba(230, 237, 244, 0.94));
+  box-shadow: 0 18px 48px rgba(38, 56, 79, 0.08);
+  content: "";
+  inset: 28px -28px 30px;
 }
 
 .eyebrow {
@@ -248,9 +263,9 @@ a:focus-visible {
   position: relative;
   overflow: hidden;
   padding: 26px;
-  border: 1px solid #e2e7f0;
+  border: 1px solid #c9d4e0;
   border-radius: 26px;
-  background: linear-gradient(145deg, #ffffff 0%, #fbfdff 64%, #f6f2ff 100%);
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 64%, #f1eef8 100%);
   box-shadow: var(--shadow);
 }
 
@@ -459,6 +474,14 @@ a:focus-visible {
 }
 
 .generator-section {
+  margin-top: 58px;
+  border: 1px solid #c6d2df;
+  border-radius: 36px;
+  padding-inline: 34px;
+  background:
+    radial-gradient(circle at 92% 10%, rgba(105, 200, 242, 0.12), transparent 22%),
+    linear-gradient(145deg, #e3eaf1, #dbe4ed);
+  box-shadow: 0 20px 55px rgba(30, 48, 72, 0.1);
   padding-block: 88px 110px;
 }
 
@@ -471,13 +494,14 @@ a:focus-visible {
 .lotto-status-section::before {
   position: absolute;
   z-index: -1;
-  border: 1px solid rgba(212, 220, 233, 0.75);
+  border: 1px solid #c5d2df;
   border-radius: 36px;
   background:
-    radial-gradient(circle at 8% 12%, rgba(251, 196, 0, 0.12), transparent 22%),
-    radial-gradient(circle at 92% 18%, rgba(105, 200, 242, 0.14), transparent 24%),
-    radial-gradient(circle at 88% 86%, rgba(176, 216, 64, 0.1), transparent 23%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(246, 249, 253, 0.86));
+    radial-gradient(circle at 8% 12%, rgba(251, 196, 0, 0.14), transparent 22%),
+    radial-gradient(circle at 92% 18%, rgba(105, 200, 242, 0.17), transparent 24%),
+    radial-gradient(circle at 88% 86%, rgba(176, 216, 64, 0.12), transparent 23%),
+    linear-gradient(135deg, #e4ebf2, #dbe5ef);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 18px 50px rgba(31, 49, 73, 0.09);
   content: "";
   inset: 44px -28px -18px;
 }
@@ -493,7 +517,7 @@ a:focus-visible {
 .trust-item {
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid #bdcbd9;
   border-radius: 15px;
   padding: 15px 15px 15px 19px;
   background: rgba(255, 255, 255, 0.92);
@@ -534,8 +558,8 @@ a:focus-visible {
   border: 1px solid var(--line);
   border-radius: 22px;
   padding: 28px;
-  background: linear-gradient(160deg, #ffffff 0%, #fcfdff 72%, #faf7ff 100%);
-  box-shadow: 0 16px 44px rgba(35, 51, 78, 0.08);
+  background: linear-gradient(160deg, #ffffff 0%, #f9fbfd 72%, #f4f1fa 100%);
+  box-shadow: 0 18px 46px rgba(22, 39, 64, 0.14);
 }
 
 .status-loading,
@@ -826,6 +850,38 @@ a:focus-visible {
   scrollbar-width: thin;
 }
 
+.match-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 16px;
+  margin: 3px 0 12px;
+  border-radius: 10px;
+  padding: 9px 11px;
+  background: #e8edf3;
+  color: #536276;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.match-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.match-legend-dot {
+  width: 10px;
+  height: 10px;
+  border: 2px solid #132a46;
+  border-radius: 50%;
+  background: #4072ac;
+}
+
+.match-legend-dot.bonus {
+  border-color: #6942a5;
+  background: #8d67c4;
+}
+
 .winning-record {
   display: flex;
   align-items: center;
@@ -856,10 +912,56 @@ a:focus-visible {
 }
 
 .winning-record .ball {
+  position: relative;
   width: 32px;
   height: 32px;
   flex-basis: 32px;
   font-size: 11px;
+}
+
+.winning-record .ball.unmatched-ball {
+  border-color: #aeb8c3;
+  opacity: 0.3;
+  filter: grayscale(0.25) saturate(0.45);
+  box-shadow: none;
+  transform: scale(0.9);
+}
+
+.winning-record .ball.matched-ball {
+  z-index: 1;
+  border: 2px solid #132a46;
+  opacity: 1;
+  filter: brightness(0.78) saturate(1.28);
+  box-shadow: 0 0 0 3px #fff, 0 7px 15px rgba(18, 38, 62, 0.28);
+  transform: scale(1.04);
+}
+
+.winning-record .ball.matched-ball::after {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  display: grid;
+  width: 15px;
+  height: 15px;
+  place-items: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #132a46;
+  color: #fff;
+  content: "✓";
+  font-size: 8px;
+  line-height: 1;
+  text-shadow: none;
+}
+
+.winning-record .ball.matched-bonus {
+  border-color: #6942a5;
+  box-shadow: 0 0 0 3px #eee8f8, 0 7px 15px rgba(82, 48, 129, 0.28);
+}
+
+.winning-record .ball.matched-bonus::after {
+  background: #6942a5;
+  content: "B";
 }
 
 .history-empty {
@@ -946,10 +1048,10 @@ a:focus-visible {
 .generator-card {
   scroll-margin-top: 96px;
   padding: 30px;
-  border: 1px solid var(--line);
+  border: 1px solid #becbd8;
   border-radius: 22px;
   background: linear-gradient(160deg, #ffffff, #fbfdff);
-  box-shadow: 0 14px 38px rgba(35, 51, 78, 0.07);
+  box-shadow: 0 16px 40px rgba(22, 39, 64, 0.12);
 }
 
 .generator-card:first-child { border-top: 4px solid #62b998; }
@@ -1812,6 +1914,16 @@ select {
     min-height: auto;
     grid-template-columns: 1fr;
     padding-block: 56px 72px;
+  }
+
+  .hero::before {
+    border-radius: 24px;
+    inset: 10px -8px 18px;
+  }
+
+  .generator-section {
+    border-radius: 24px;
+    padding-inline: 12px;
   }
 
   .trust-strip {

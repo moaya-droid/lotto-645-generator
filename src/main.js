@@ -367,6 +367,10 @@ function renderLottoStatus(data) {
     <div class="rank-stats" id="rank-stats">${stats}</div>
     <div class="pending-list">${pending}</div>
     <div class="round-breakdown" id="round-breakdown"></div>
+    <div class="match-legend" aria-label="당첨번호 표시 안내">
+      <span><i class="match-legend-dot"></i>진한 공은 실제 당첨번호와 일치</span>
+      <span><i class="match-legend-dot bonus"></i>보라 표시는 보너스번호 일치</span>
+    </div>
     <div class="winning-history" id="winning-history"></div>
     <p class="tracking-note">
       낙첨 번호는 보존하지 않으며, 회차별 생성·검증 건수와 1~5등 당첨 기록만 누적합니다.
@@ -423,14 +427,27 @@ function renderLottoStatus(data) {
     historyContainer.innerHTML = visibleHistory.length
       ? visibleHistory
           .map(
-            (item) => `
+            (item) => {
+              const matchedNumbers = new Set(item.matchedNumbers || []);
+              return `
               <div class="winning-record">
                 <strong>제${item.round}회 ${item.rank}등</strong>
                 <div class="balls">
-                  ${item.numbers.map((number) => renderBall(number)).join("")}
+                  ${item.numbers
+                    .map((number) => {
+                      const isBonus = item.bonusMatched && number === item.bonusNumber;
+                      const matchClass = matchedNumbers.has(number)
+                        ? "matched-ball"
+                        : isBonus
+                          ? "matched-ball matched-bonus"
+                          : "unmatched-ball";
+                      return renderBall(number, matchClass);
+                    })
+                    .join("")}
                 </div>
               </div>
-            `,
+            `;
+            },
           )
           .join("")
       : `
